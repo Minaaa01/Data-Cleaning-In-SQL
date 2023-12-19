@@ -104,17 +104,16 @@
 		WHERE column_name IS NULL
 -- Remove Duplicates
 	WITH RemoveDuplicate AS (
-	SELECT *, ROW_NUMBER() OVER (
-									PARTITION BY ParcelID,
-												PropertyAddress,
-												SalePrice,
-												SaleDate,
-												LegalReference
-												ORDER BY UniqueID
-								) AS row_num
+	SELECT *, ROW_NUMBER() OVER(
+					PARTITION BY ParcelID,
+						PropertyAddress,
+						SalePrice,
+						SaleDate,
+						LegalReference
+						ORDER BY UniqueID
+						) AS row_num
 	FROM NashvilleHousing
-
-							)
+				)
 							
 	Select *
 	From RemoveDuplicate
